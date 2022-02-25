@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alpian.raziehakbari";
+option java_outer_classname = "CustomerGrpcProto";
+
+package customer;
+
+service ExternalId {
+    rpc getExternalId (ExternalIdRequest) returns (ExternalIdReply) {}
+    rpc storeNewCustomer(StoreCustomerRequest) returns (StoreCustomerReply) {}
+}
+
+message ExternalIdRequest {
+    int64 customerId = 1;
+}
+
+message ExternalIdReply {
+    string externalId = 1;
+}
+
+message StoreCustomerRequest{
+    int64 customerId = 1;
+    string createdAt = 2;
+}
+
+message StoreCustomerReply{
+    string externalId = 1;
+}
