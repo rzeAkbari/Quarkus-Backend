@@ -2,7 +2,7 @@ package com.alpian.raziehakbari.controllers;
 
 import com.alpian.raziehakbari.*;
 import com.alpian.raziehakbari.exception.DemoInvalidRequestException;
-import com.alpian.raziehakbari.impl.CustomerRepositoryImpl;
+import com.alpian.raziehakbari.services.impl.CustomerRepositoryImpl;
 import io.grpc.Metadata;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -62,12 +62,10 @@ public class CustomerGrpcService implements ExternalId {
 
     private Metadata createExceptionMetadata(Throwable throwable){
         var metadata = new Metadata();
-        Optional.ofNullable(throwable.getMessage()).ifPresent(message -> {
-            metadata.put(Metadata.Key.of(
-                    "ExceptionMessage"
-                    ,Metadata.ASCII_STRING_MARSHALLER)
-                    ,message);
-        });
+        Optional.ofNullable(throwable.getMessage()).ifPresent(message -> metadata.put(Metadata.Key.of(
+                "ExceptionMessage"
+                ,Metadata.ASCII_STRING_MARSHALLER)
+                ,message));
         return metadata;
     }
 }
